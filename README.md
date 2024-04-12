@@ -12,13 +12,13 @@ Ensure you have Python installed on your system along with the following librari
 
 Install these packages using pip with the command:
 
-\```bash
+```bash
 pip install pandas numpy matplotlib
-\```
+```
 
-## Usage
+### Usage
 
-### Overview
+#### Overview
 
 This project includes a class and several functions aimed at facilitating the analysis of aircraft trajectories:
 
@@ -26,9 +26,9 @@ This project includes a class and several functions aimed at facilitating the an
 - `generate_flight_path`: Generates 3D flight paths with linear or curved trajectory options.
 - `plot_3d_trajectories`: Visualizes flight paths in 3D, aiding in navigational and safety assessments.
 
-### Detailed Description of Classes and Functions
+#### Detailed Description of Classes and Functions
 
-#### SocialNavigationMetrics
+##### SocialNavigationMetrics
 
 Initialized with a DataFrame containing trajectory data, this class offers methods to:
 
@@ -36,21 +36,19 @@ Initialized with a DataFrame containing trajectory data, this class offers metho
 - `minimum_distance()`: Finds the shortest distance between two paths throughout the sampled points.
 - `collision_risk(epsilon, t_critical)`: Evaluates potential collision risks by identifying frames where the distance between trajectories falls below a safety threshold or the Time to Reach (TTR) is critically low.
 
-#### Flight Path Generation
+##### Flight Path Generation
 
-\`generate_flight_path(start_pos, end_pos, num_points, curve=False)\`:
-- Generates a path from `start_pos` to `end_pos` with `num_points` samples. If `curve` is True, it includes a sinusoidal variation in the y-axis.
+The `generate_flight_path(start_pos, end_pos, num_points, curve=False)` function creates flight paths between specified start and end points with a specified number of points. It can generate both linear and curved trajectories, with the option to include a sinusoidal variation in the y-axis.
 
-#### Trajectory Visualization
+##### Trajectory Visualization
 
-\`plot_3d_trajectories(df, title, labels, styles)\`:
-- Plots paths from the DataFrame `df` using Matplotlib. Customize the plot with `title`, `labels` for each path, and `styles` for plot appearance.
+The `plot_3d_trajectories(df, title, labels, styles)` function plots paths from the DataFrame `df` using Matplotlib. It allows customization of the plot with a title, labels for each path, and styles for plot appearance.
 
 ### Example
 
 The following example demonstrates how to generate flight paths, compute metrics, and visualize trajectories:
 
-\```python
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -74,15 +72,13 @@ df = pd.DataFrame(data)
 
 # Initialize metrics calculation
 metrics = SocialNavigationMetrics(df)
-print("Velocity (M1):", metrics.calculate_metric(1))  # meters per second
-print("Acceleration (M2):", metrics.calculate_metric(2))  # meters per second squared
-print("Jerk (M3):", metrics.calculate_metric(3))  # meters per second cubed
-print("Minimum Distance (M4):", metrics.minimum_distance())  # meters
-print("Collision Risk (M5):", metrics.collision_risk(10, 5))  # frames at risk
+print("Velocity (M1):", metrics.calculate_metric(1))
+print("Acceleration (M2):", metrics.calculate_metric(2))
+print("Jerk (M3):", metrics.calculate_metric(3))
+print("Minimum Distance (M4):", metrics.minimum_distance())
+print("Collision Risk (M5):", metrics.collision_risk(10, 5))
 
 # Plot trajectories
 plot_3d_trajectories(df, title='3D Trajectories of Human Pilot and Wingman', labels=['Human Pilot', 'Wingman'], 
                      styles=[{'color': 'blue', 'marker': 'o'}, {'color': 'red', 'marker': '^'}])
-\```
-
-This README provides a comprehensive guide to using the tools within this project to analyze aircraft navigation data effectively.
+```
