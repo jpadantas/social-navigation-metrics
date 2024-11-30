@@ -13,7 +13,7 @@ Ensure you have Python installed on your system along with the following librari
 Install these packages using pip with the command:
 
 ```bash
-pip install pandas numpy matplotlib
+pip install pandas numpy matplotlib statsmodels
 ```
 
 ### Usage
@@ -25,13 +25,13 @@ This project includes classes and functions aimed at facilitating the analysis o
 - `SocialNavigationMetrics`: Calculates various metrics from trajectory data.
 - `generate_flight_path`: Generates 3D flight paths with linear or curved trajectory options.
 - `plot_3d_trajectories`: Visualizes flight paths in 3D, aiding in navigational and safety assessments.
-- **Sample Size Calculation**: Implements statistical analysis for determining the required sample size for ANOVA tests, including adjustments for repeated measures.
+- `sample_size`: Implements statistical analysis for determining the required sample size for ANOVA tests, including adjustments for repeated measures.
 
 #### Detailed Description of Classes and Functions
 
 ##### SocialNavigationMetrics
 
-This class is initialized with a DataFrame containing trajectory data and provides the following methods:
+The **SocialNavigationMetrics.ipynb** notebook contains a class that is initialized with a DataFrame containing trajectory data and provides the following methods:
 
 - `calculate_metric(order)`: Computes the mean squared derivative (velocity, acceleration, or jerk) based on the specified order.
 - `minimum_distance()`: Finds the shortest distance between two paths throughout the sampled points.
@@ -62,23 +62,3 @@ The notebook includes:
 - **Number of Repeated Measures (m)**: Specifies how many times each subject is measured.
 
 The sample size calculations and corresponding plots can guide the experimental design process for aerospace studies or other applications.
-
-#### Example
-
-The repository provides code snippets to:
-
-1. Generate synthetic flight paths.
-2. Visualize 3D trajectories.
-3. Calculate navigation metrics, including velocity, acceleration, jerk, minimum distance, and collision risk.
-4. Analyze statistical sample size for ANOVA using the **sample_size.ipynb** notebook.
-
-To get started, refer to the provided example scripts and the **sample_size.ipynb** notebook for detailed demonstrations.
-
----
-
-### Dependencies
-
-Ensure you have the following Python libraries installed:
-
-```bash
-pip install pandas numpy matplotlib statsmodels
