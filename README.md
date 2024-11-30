@@ -20,17 +20,18 @@ pip install pandas numpy matplotlib
 
 #### Overview
 
-This project includes a class and several functions aimed at facilitating the analysis of aircraft trajectories:
+This project includes classes and functions aimed at facilitating the analysis of aircraft trajectories and experimental design:
 
 - `SocialNavigationMetrics`: Calculates various metrics from trajectory data.
 - `generate_flight_path`: Generates 3D flight paths with linear or curved trajectory options.
 - `plot_3d_trajectories`: Visualizes flight paths in 3D, aiding in navigational and safety assessments.
+- **Sample Size Calculation**: Implements statistical analysis for determining the required sample size for ANOVA tests, including adjustments for repeated measures.
 
 #### Detailed Description of Classes and Functions
 
 ##### SocialNavigationMetrics
 
-Initialized with a DataFrame containing trajectory data, this class offers methods to:
+This class is initialized with a DataFrame containing trajectory data and provides the following methods:
 
 - `calculate_metric(order)`: Computes the mean squared derivative (velocity, acceleration, or jerk) based on the specified order.
 - `minimum_distance()`: Finds the shortest distance between two paths throughout the sampled points.
@@ -38,47 +39,46 @@ Initialized with a DataFrame containing trajectory data, this class offers metho
 
 ##### Flight Path Generation
 
-The `generate_flight_path(start_pos, end_pos, num_points, curve=False)` function creates flight paths between specified start and end points with a specified number of points. It can generate both linear and curved trajectories, with the option to include a sinusoidal variation in the y-axis.
+The `generate_flight_path(start_pos, end_pos, num_points, curve=False)` function creates flight paths between specified start and end points with a specified number of points. It supports generating linear and curved trajectories, with the option to include a sinusoidal variation in the y-axis.
 
 ##### Trajectory Visualization
 
-The `plot_3d_trajectories(df, title, labels, styles)` function plots paths from the DataFrame `df` using Matplotlib. It allows customization of the plot with a title, labels for each path, and styles for plot appearance.
+The `plot_3d_trajectories(df, title, labels, styles)` function plots paths from the DataFrame `df` using Matplotlib. Customization options include title, labels for each path, and plot appearance styles.
 
-### Example
+##### Sample Size Analysis (Sample Size Notebook)
 
-The following example demonstrates how to generate flight paths, compute metrics, and visualize trajectories:
+The **sample_size.ipynb** notebook contains a detailed implementation of sample size calculations for ANOVA with repeated measures. It leverages the `statsmodels` library and generates a plot that shows:
 
-```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+- Required sample size as a function of effect size.
+- Adjustments for repeated measures based on intra-class correlation.
 
-# Generate flight paths
-num_points = 60
-human_path = generate_flight_path([0, 0, 1000], [300, 50, 1200], num_points, curve=True)
-wingman_path = generate_flight_path([0, -10, 1000], [300, 40, 1200], num_points, curve=True)
+The notebook includes:
 
-# Create DataFrame
-data = {
-    'human_x': human_path[:, 0],
-    'human_y': human_path[:, 1],
-    'human_z': human_path[:, 2],
-    'wingman_x': wingman_path[:, 0],
-    'wingman_y': wingman_path[:, 1],
-    'wingman_z': wingman_path[:, 2]
-}
-df = pd.DataFrame(data)
+- **Effect Size (Cohen's f)**: Specifies the magnitude of the difference expected to detect.
+- **Alpha (α)**: Significance level, typically set at 0.05.
+- **Power**: Probability of correctly rejecting the null hypothesis (default 0.8).
+- **Number of Groups (k)**: Defines the number of independent groups or conditions.
+- **Intra-class Correlation (ρ)**: Accounts for the correlation between repeated measures on the same subject.
+- **Number of Repeated Measures (m)**: Specifies how many times each subject is measured.
 
-# Initialize metrics calculation
-metrics = SocialNavigationMetrics(df)
-print("Velocity (M1):", metrics.calculate_metric(1))
-print("Acceleration (M2):", metrics.calculate_metric(2))
-print("Jerk (M3):", metrics.calculate_metric(3))
-print("Minimum Distance (M4):", metrics.minimum_distance())
-print("Collision Risk (M5):", metrics.collision_risk(10, 5))
+The sample size calculations and corresponding plots can guide the experimental design process for aerospace studies or other applications.
 
-# Plot trajectories
-plot_3d_trajectories(df, title='3D Trajectories of Human Pilot and Wingman', labels=['Human Pilot', 'Wingman'], 
-                     styles=[{'color': 'blue', 'marker': 'o'}, {'color': 'red', 'marker': '^'}])
-```
+#### Example
+
+The repository provides code snippets to:
+
+1. Generate synthetic flight paths.
+2. Visualize 3D trajectories.
+3. Calculate navigation metrics, including velocity, acceleration, jerk, minimum distance, and collision risk.
+4. Analyze statistical sample size for ANOVA using the **sample_size.ipynb** notebook.
+
+To get started, refer to the provided example scripts and the **sample_size.ipynb** notebook for detailed demonstrations.
+
+---
+
+### Dependencies
+
+Ensure you have the following Python libraries installed:
+
+```bash
+pip install pandas numpy matplotlib statsmodels
